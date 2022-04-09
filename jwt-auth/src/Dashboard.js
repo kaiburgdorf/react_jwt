@@ -2,6 +2,7 @@ import { Button } from "@mui/material";
 import React from "react";
 import { Logout as LogoutIcon } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import Api from "./classes/Api";
 
 class Dashboard extends React.Component {
     
@@ -15,6 +16,9 @@ class Dashboard extends React.Component {
 
     logoutHandler() {
         console.log("hit logout");
+        let api = new Api();
+        api.getTestData();
+
     }
 
     render() {
