@@ -1,6 +1,9 @@
 import React from "react";
 import { TextField, Button } from "@mui/material";
 import { Login as LoginIcon } from "@mui/icons-material";
+import Api from "./classes/Api";
+import AuthService from "./classes/AuthService";
+import { Navigate, useNavigate } from "react-router-dom";
 
 class LoginPanel extends React.Component {
     constructor(props) {
@@ -13,7 +16,8 @@ class LoginPanel extends React.Component {
         this.handleLogin = this.handleLogin.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
 
-
+        this.api = new Api();
+        this.authService = new AuthService();
     }
 
     handleInputChange(event) {
@@ -25,12 +29,16 @@ class LoginPanel extends React.Component {
     }
 
     handleLogin(event) {
-        alert(this.state.username + " - - - " + this.state.password);
+        this.api.login(this.state.username, this.state.password);
         event.preventDefault();
     }
 
 
     render() {
+
+
+
+
         return (
             <div>
                 <h2>Login</h2>

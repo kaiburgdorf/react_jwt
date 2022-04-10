@@ -17,7 +17,7 @@ class Dashboard extends React.Component {
     logoutHandler() {
         console.log("hit logout");
         let api = new Api();
-        api.getTestData();
+        api.logout();
 
     }
 
