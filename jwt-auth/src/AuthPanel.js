@@ -1,10 +1,11 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link, Route, Routes } from "react-router-dom";
 import AuthService from "./classes/AuthService";
 import LoginPanel from "./LoginPanel";
+import RegisterPanel from "./RegisterPanel";
 
 
-function AuthPanel() {
+function AuthPanel(props) {
     let authService = new AuthService();
     let navigation = useNavigate();
 
@@ -17,7 +18,11 @@ function AuthPanel() {
     return(
         <div>
             <h1>AuthPanel</h1>
-            <LoginPanel></LoginPanel>
+            <nav>
+                <Link to="/login">Login</Link>
+                <Link to="/register">Register</Link>
+            </nav>
+            <div>{(props.panel_type == "register" ? <RegisterPanel></RegisterPanel> : <LoginPanel></LoginPanel>)}</div>
         </div>
     );
 }

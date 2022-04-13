@@ -7,10 +7,35 @@ class Api {
         this.authService = new AuthService();
     }
 
-    getTestData() {
-        axios.get("http://localhost/jwt_auth_backend/index.php")
+    getServerTime() {
+        axios.get("http://localhost/jwt_auth_backend/index.php", {
+            headers: this.authService.getAuthHeader(),
+            params: {
+                method: 'getServerTime'
+            }
+        })
             .then(function(response) {
-                console.log(response);
+                console.log(response.data);
+                return response.data;
+            })
+            .catch(function(error) {
+                console.log(error);
+            })
+            .then(function() {
+
+            });
+    }
+
+    getAllUsers() {
+        axios.get("http://localhost/jwt_auth_backend/index.php", {
+            headers: this.authService.getAuthHeader(),
+            params: {
+                method: 'getAllUsers'
+            }
+        })
+            .then(function(response) {
+                console.log(response.data);
+                return response.data;
             })
             .catch(function(error) {
                 console.log(error);
@@ -35,6 +60,7 @@ class Api {
             result = true;
             if(response.data.jwt) {
                 localStorage.setItem("user", JSON.stringify(response.data));
+                console.log(response.data);
                 window.location.reload();
             }
             result = response;
@@ -66,6 +92,37 @@ class Api {
         .then(function() {
             localStorage.removeItem("user");
         });
+    }
+
+    register(username, password, email) {
+
+        let result;
+
+        axios.get('http://localhost/jwt_auth_backend/index.php', {
+            params: {
+                method: 'register',
+                username: username,
+                password: password,
+                email: email
+            }
+        })
+        .then(function(response) {     
+            result = true;
+            if(response.data.jwt) {
+                localStorage.setItem("user", JSON.stringify(response.data));
+                window.location.reload();
+            }
+            result = response;
+        })
+        .catch(function(error) {
+            console.log(error);
+            result = false;
+        })
+        .then(function() {
+
+        });
+
+        return result;
     }
 }
 

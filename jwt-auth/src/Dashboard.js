@@ -12,13 +12,18 @@ class Dashboard extends React.Component {
         this.state = {};
 
         this.logoutHandler = this.logoutHandler.bind(this);
+        this.getServerTimeHandler = this.getServerTimeHandler.bind(this);
+        this.api = new Api();
+        this.api.getAllUsers();
     }
 
     logoutHandler() {
-        console.log("hit logout");
-        let api = new Api();
-        api.logout();
+        this.api.logout();
+    }
 
+    getServerTimeHandler() {
+        let data = this.api.getServerTime();
+        console.log(data);
     }
 
     render() {
@@ -31,6 +36,9 @@ class Dashboard extends React.Component {
                     Logout
                 </Button>
                 </Link>
+                <Button onClick={this.getServerTimeHandler} variant="contained">
+                    gerServerTime
+                </Button>
             </div>
         );
     }

@@ -17,6 +17,8 @@ class Welcome extends React.Component {
                     <Link to="/login">Login</Link>
                     <br />
                     <Link to="/dashboard">Dashboard</Link>
+                    <br />
+                    <Link to="/register">Register</Link>
                 </nav>
             </div>
         );

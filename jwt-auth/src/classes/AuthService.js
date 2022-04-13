@@ -9,7 +9,8 @@ class AuthService {
     getAuthHeader() {
         const user = JSON.parse(localStorage.getItem('user'));
         if (user && user.jwt) {
-            return { Authorization: 'Bearer ' + user.jwt };
+            console.log("auth header: " + user.jwt);
+            return { Authorization: '' + user.jwt };
         } else {
             return {};
         }
