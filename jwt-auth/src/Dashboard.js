@@ -3,6 +3,8 @@ import React from "react";
 import { Logout as LogoutIcon } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import Api from "./classes/Api";
+import EditNote from "./EditNote";
+import NoteList from "./NoteList";
 
 class Dashboard extends React.Component {
     
@@ -17,7 +19,7 @@ class Dashboard extends React.Component {
         this.api.getAllUsers();
     }
 
-    logoutHandler() {
+        logoutHandler() {
         this.api.logout();
     }
 
@@ -39,6 +41,8 @@ class Dashboard extends React.Component {
                 <Button onClick={this.getServerTimeHandler} variant="contained">
                     gerServerTime
                 </Button>
+                <NoteList api={this.api}></NoteList>
+                <EditNote></EditNote>
             </div>
         );
     }

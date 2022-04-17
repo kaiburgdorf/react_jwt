@@ -8,7 +8,7 @@ class Api {
     }
 
     getServerTime() {
-        axios.get("http://localhost/jwt_auth_backend/index.php", {
+        return new Promise(resolve => {axios.get("http://localhost/jwt_auth_backend/index.php", {
             headers: this.authService.getAuthHeader(),
             params: {
                 method: 'getServerTime'
@@ -16,7 +16,8 @@ class Api {
         })
             .then(function(response) {
                 console.log(response.data);
-                return response.data;
+                return response;
+                
             })
             .catch(function(error) {
                 console.log(error);
@@ -24,6 +25,10 @@ class Api {
             .then(function() {
 
             });
+        });
+    }
+    async getNoteListData() {
+        return ["test", "api", "daten"];
     }
 
     getAllUsers() {
