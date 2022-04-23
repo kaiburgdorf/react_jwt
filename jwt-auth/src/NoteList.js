@@ -24,6 +24,16 @@ function NoteList(props) {
                     });
     }, []);
 
+    const createEntryItem = (value) => {
+        return (
+            <div>
+            <b>{value.title}</b><br />
+            <u>{value.last_change}</u><br />
+            <i>{value.teaser}</i>
+            </div>
+        );
+    }
+
     return (
         <div>
             <h1>NoteList</h1>
@@ -33,7 +43,7 @@ function NoteList(props) {
                     return (
                         <ListItem disablePadding key={index}>
                             <ListItemButton>
-                            <ListItemText primary={value} />
+                            <ListItemText primary={createEntryItem(value)} />
                             </ListItemButton>
                         </ListItem>
                     )
