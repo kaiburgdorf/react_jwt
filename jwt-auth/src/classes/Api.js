@@ -50,6 +50,30 @@ class Api {
             .catch(error => {throw error});
     }
 
+    updateNote(payload) {
+        return axios.get("http://localhost/jwt_auth_backend/index.php", {
+            headers: this.authService.getAuthHeader(),
+            params: {
+                method: 'updateNote',
+                data: payload
+            }
+        })
+            .then(response => response.data)
+            .catch(error => {throw error});
+    }
+
+    getEntry(id) {
+        return axios.get("http://localhost/jwt_auth_backend/index.php", {
+            headers: this.authService.getAuthHeader(),
+            params: {
+                method: 'getEntry',
+                data: id
+            }
+        })
+            .then(response => response.data)
+            .catch(error => {throw error});
+    }
+
     getAllUsers() {
         axios.get("http://localhost/jwt_auth_backend/index.php", {
             headers: this.authService.getAuthHeader(),
