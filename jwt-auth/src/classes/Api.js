@@ -104,6 +104,7 @@ class Api {
         })
         .then(function() {
             localStorage.removeItem("user");
+            window.location.reload();
         });
     }
 
