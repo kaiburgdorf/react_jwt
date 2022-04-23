@@ -27,8 +27,16 @@ class Api {
             });
         });
     }
-    async getNoteListData() {
-        return ["test", "api", "daten"];
+
+    getNoteListData() {
+        return axios.get("http://localhost/jwt_auth_backend/index.php", {
+            headers: this.authService.getAuthHeader(),
+            params: {
+                method: 'getNoteListData'
+            }
+        })
+            .then(response => response.data)
+            .catch(error => {throw error});
     }
 
     getAllUsers() {

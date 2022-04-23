@@ -5,39 +5,24 @@ import { HourglassEmpty } from '@mui/icons-material';
 
 function NoteList(props) {
 
-    //const api = new Api();
-
     const [myData, setMyData] = useState([]);
-    const [trial, setTrial] = useState(0);
     const api = props.api;
 
-    const GetData = async () => {
-            console.log("async GetData call");
-            console.log(api);
-            if(myData.length < 1) {
-                api.getServerTime()
-                .then((value) => {
-                    console.log("in then with value: " + value);
-                    setMyData(value);
-                })
-                .catch((error) => {
-                    console.log("shit");
-                    return error;
-                })
-                .then(() => {
-                    setTrial(trial+1);
-                    if(trial > 5) {
-                        setMyData(["nothing found ;("]);
-                    }
-                    console.log("trial " + trial);
-                });
-            }
-            //console.log(res);
-    }
-
     useEffect(() => {
-        GetData();
-    }, [myData]);
+        if(myData.length < 1) {
+            setMyData(["loading..."]);
+        }
+
+        let request = api.getNoteListData()
+                    .then(result => {
+                        console.log(result);
+                        setMyData(result);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        setMyData(["something went wrong"]);
+                    });
+    }, []);
 
     return (
         <div>

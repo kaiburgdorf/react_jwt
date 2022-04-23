@@ -26,6 +26,8 @@ class Dashboard extends React.Component {
     getServerTimeHandler() {
         let data = this.api.getServerTime();
         console.log(data);
+        data = this.api.getNoteListData();
+        console.log(data);
     }
 
     render() {
