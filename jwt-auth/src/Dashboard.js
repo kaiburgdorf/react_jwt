@@ -1,3 +1,4 @@
+import './Dashboard.css';
 import { Button } from "@mui/material";
 import React from "react";
 import { Logout as LogoutIcon } from "@mui/icons-material";
@@ -17,6 +18,7 @@ class Dashboard extends React.Component {
         this.getServerTimeHandler = this.getServerTimeHandler.bind(this);
         this.api = new Api();
         this.api.getAllUsers();
+
     }
 
         logoutHandler() {
@@ -29,6 +31,8 @@ class Dashboard extends React.Component {
         data = this.api.getNoteListData();
         console.log(data);
     }
+
+    
 
     render() {
 
@@ -43,8 +47,15 @@ class Dashboard extends React.Component {
                 <Button onClick={this.getServerTimeHandler} variant="contained">
                     gerServerTime
                 </Button>
-                <NoteList api={this.api}></NoteList>
-                <EditNote></EditNote>
+                <div className="notes-view">
+                    <div className='note-list'>
+                        <NoteList api={this.api}></NoteList>
+                    </div>
+                    <div className='edit-note'>
+                        <EditNote></EditNote>
+                    </div>
+                </div>
+                                    
             </div>
         );
     }

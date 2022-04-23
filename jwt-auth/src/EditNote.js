@@ -1,3 +1,4 @@
+import './EditNote.css';
 import { TextField, Button } from '@mui/material';
 import React, { useState } from 'react';
 import Api from './classes/Api';
@@ -28,12 +29,14 @@ function EditNote(props) {
                     onChange={event => { setTitle(event.target.value) }}
                     name="title"></TextField>
                 <br />
-                <TextField multiline
+                <TextField id="content-textfield"
+                    multiline
+                    maxRows='15'
                     value={ content }
                     onChange={event => { setContent(event.target.value) }}
                     name="content"></TextField>
                 <br />
-                <input type="submit" value="save" />
+                <Button variant="contained" type="submit">save</Button>
             </form>
             
         </div>
