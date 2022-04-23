@@ -1,77 +1,73 @@
-import React from "react";
-import { TextField, Button } from "@mui/material";
-import { Login as LoginIcon } from "@mui/icons-material";
-import Api from "./classes/Api";
-import AuthService from "./classes/AuthService";
-import { Navigate, useNavigate } from "react-router-dom";
+import React from 'react';
+import {TextField, Button} from '@mui/material';
+import {Login as LoginIcon} from '@mui/icons-material';
+import Api from './classes/Api';
+import AuthService from './classes/AuthService';
+import {Navigate, useNavigate} from 'react-router-dom';
 
 class LoginPanel extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            username:'',
-            password:''
-        };
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: '',
+      password: '',
+    };
 
-        this.handleLogin = this.handleLogin.bind(this);
-        this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
 
-        this.api = new Api();
-        this.authService = new AuthService();
-    }
+    this.api = new Api();
+    this.authService = new AuthService();
+  }
 
-    handleInputChange(event) {
-        const value = event.target.value;
-        const name = event.target.name;
-        this.setState({
-            [name]: value
-        });
-    }
+  handleInputChange(event) {
+    const value = event.target.value;
+    const name = event.target.name;
+    this.setState({
+      [name]: value,
+    });
+  }
 
-    handleLogin(event) {
-        this.api.login(this.state.username, this.state.password);
-        event.preventDefault();
-    }
-
-
-    render() {
+  handleLogin(event) {
+    this.api.login(this.state.username, this.state.password);
+    event.preventDefault();
+  }
 
 
-
-
-        return (
-            <div>
-                <h2>Login</h2>
-                <form onSubmit={this.handleLogin}>
-                <TextField
-                        required
-                        id="username-input"
-                        label="Username"
-                        defaultValue=""
-                        variant="filled"
-                        type={this.state.username}
-                        onChange={this.handleInputChange}
-                        name="username"
-                        />
-                <br />
-                <TextField
-                    required
-                    id="password-input"
-                    label="Password"
-                    defaultValue=""
-                    variant="filled"
-                    type={this.state.password}
-                    onChange={this.handleInputChange}
-                    name="password"
-                    />
-                <br />
-                <Button type="submit" variant="contained" endIcon={<LoginIcon />}>
+  render() {
+    return (
+      <div>
+        <h2>Login</h2>
+        <form onSubmit={this.handleLogin}>
+          <TextField
+            required
+            id="username-input"
+            label="Username"
+            defaultValue=""
+            variant="filled"
+            type={this.state.username}
+            onChange={this.handleInputChange}
+            name="username"
+          />
+          <br />
+          <TextField
+            required
+            id="password-input"
+            label="Password"
+            defaultValue=""
+            variant="filled"
+            type={this.state.password}
+            onChange={this.handleInputChange}
+            name="password"
+          />
+          <br />
+          <Button type="submit" variant="contained" endIcon={<LoginIcon />}>
                     Login
-                </Button>
-                </form>
-            </div>
-        );
-    }
+          </Button>
+        </form>
+      </div>
+    );
+  }
 }
 
 export default LoginPanel;

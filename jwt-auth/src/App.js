@@ -1,6 +1,6 @@
 import './App.css';
 import LoginPanel from './LoginPanel';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import AuthPanel from './AuthPanel';
 
 function App() {
@@ -9,8 +9,8 @@ function App() {
       <nav>
         <Link to="/dashboard">Dashboard</Link>
       </nav>
-     <LoginPanel></LoginPanel>
-     <AuthPanel></AuthPanel>
+      <LoginPanel></LoginPanel>
+      <AuthPanel></AuthPanel>
     </div>
   );
 }
