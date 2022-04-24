@@ -67,6 +67,20 @@ class Api {
         });
   }
 
+  deleteNote(payload) {
+    return axios.get('http://localhost/jwt_auth_backend/index.php', {
+      headers: this.authService.getAuthHeader(),
+      params: {
+        method: 'deleteNote',
+        data: payload,
+      },
+    })
+        .then((response) => response.data)
+        .catch((error) => {
+          throw error;
+        });
+  }
+
   getEntry(id) {
     return axios.get('http://localhost/jwt_auth_backend/index.php', {
       headers: this.authService.getAuthHeader(),

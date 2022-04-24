@@ -17,6 +17,7 @@ class Dashboard extends React.Component {
     this.getServerTimeHandler = this.getServerTimeHandler.bind(this);
     this.handleNoteListChange = this.handleNoteListChange.bind(this);
     this.handleNewNoteButton = this.handleNewNoteButton.bind(this);
+    this.handleDeleteButton = this.handleDeleteButton.bind(this);
     this.editNoteChanged = this.editNoteChanged.bind(this);
 
     this.api = new Api();
@@ -39,12 +40,26 @@ class Dashboard extends React.Component {
   handleNoteListChange(id) {
     console.log('handleNoteListChange');
     console.log(id);
-    this.state.selection = id;
-    this.setState({selection: id});
+    this.setState({'selection': id});
   }
 
   handleNewNoteButton() {
     this.setState({selection: 0});
+  }
+
+  handleDeleteButton() {
+    console.log('hit delete for selection ' + this.state.selection);
+    this.api.deleteNote(this.state.selection)
+        .then((response) => {
+          console.log(response);
+          this.setState({
+            'selection': 0,
+            'reloadList': !this.state.reloadList,
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
   }
 
   editNoteChanged() {
@@ -70,6 +85,9 @@ class Dashboard extends React.Component {
         </Button>
         <Button variant="contained" onClick={this.handleNewNoteButton}>
                     new note
+        </Button>
+        <Button variant="contained" onClick={this.handleDeleteButton}>
+                    delete
         </Button>
         <div className="notes-view">
           <div className="note-list">
