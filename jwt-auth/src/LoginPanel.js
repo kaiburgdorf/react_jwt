@@ -3,7 +3,6 @@ import {TextField, Button} from '@mui/material';
 import {Login as LoginIcon} from '@mui/icons-material';
 import Api from './classes/Api';
 import AuthService from './classes/AuthService';
-import {Navigate, useNavigate} from 'react-router-dom';
 
 class LoginPanel extends React.Component {
   constructor(props) {

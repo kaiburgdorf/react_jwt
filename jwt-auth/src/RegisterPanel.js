@@ -3,7 +3,6 @@ import {TextField, Button} from '@mui/material';
 import {Login as LoginIcon} from '@mui/icons-material';
 import Api from './classes/Api';
 import AuthService from './classes/AuthService';
-import {Navigate, useNavigate} from 'react-router-dom';
 
 class RegisterPanel extends React.Component {
   constructor(props) {
@@ -30,7 +29,11 @@ class RegisterPanel extends React.Component {
   }
 
   handleRegister(event) {
-    this.api.register(this.state.username, this.state.password, this.state.email);
+    this.api.register(
+        this.state.username,
+        this.state.password,
+        this.state.email,
+    );
     event.preventDefault();
   }
 

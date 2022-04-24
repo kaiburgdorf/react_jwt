@@ -1,4 +1,5 @@
 import './App.css';
+import React from 'react';
 import LoginPanel from './LoginPanel';
 import {Link} from 'react-router-dom';
 import AuthPanel from './AuthPanel';

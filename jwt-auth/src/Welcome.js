@@ -1,5 +1,6 @@
 import {Link} from 'react-router-dom';
 import React from 'react';
+import {Button} from '@mui/material';
 
 class Welcome extends React.Component {
   constructor(props) {
@@ -13,11 +14,11 @@ class Welcome extends React.Component {
       <div>
         <h1>Welcome</h1>
         <nav>
-          <Link to="/login">Login</Link>
+          <Link to="/login"><Button>Login</Button></Link>
           <br />
-          <Link to="/dashboard">Dashboard</Link>
+          <Link to="/dashboard"><Button>Dashboard</Button></Link>
           <br />
-          <Link to="/register">Register</Link>
+          <Link to="/register"><Button>Register</Button></Link>
         </nav>
       </div>
     );

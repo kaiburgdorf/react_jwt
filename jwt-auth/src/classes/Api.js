@@ -7,25 +7,6 @@ class Api {
     this.authService = new AuthService();
   }
 
-  getServerTime() {
-    return axios.get('http://localhost/jwt_auth_backend/index.php', {
-      headers: this.authService.getAuthHeader(),
-      params: {
-        method: 'getServerTime',
-      },
-    })
-        .then(function(response) {
-          console.log(response.data);
-          return response;
-        })
-        .catch(function(error) {
-          console.log(error);
-        })
-        .then(function() {
-
-        });
-  }
-
   getNoteListData() {
     return axios.get('http://localhost/jwt_auth_backend/index.php', {
       headers: this.authService.getAuthHeader(),
@@ -92,25 +73,6 @@ class Api {
         .then((response) => response.data)
         .catch((error) => {
           throw error;
-        });
-  }
-
-  getAllUsers() {
-    axios.get('http://localhost/jwt_auth_backend/index.php', {
-      headers: this.authService.getAuthHeader(),
-      params: {
-        method: 'getAllUsers',
-      },
-    })
-        .then(function(response) {
-          console.log(response.data);
-          return response.data;
-        })
-        .catch(function(error) {
-          console.log(error);
-        })
-        .then(function() {
-
         });
   }
 

@@ -11,30 +11,21 @@ class Dashboard extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
-
     this.logoutHandler = this.logoutHandler.bind(this);
-    this.getServerTimeHandler = this.getServerTimeHandler.bind(this);
     this.handleNoteListChange = this.handleNoteListChange.bind(this);
     this.handleNewNoteButton = this.handleNewNoteButton.bind(this);
     this.handleDeleteButton = this.handleDeleteButton.bind(this);
     this.editNoteChanged = this.editNoteChanged.bind(this);
 
     this.api = new Api();
-    this.api.getAllUsers();
-    this.setState({Selection: 0});
-    this.setState({reloadList: true});
+    this.state = {
+      'selection': 0,
+      'reloadList': this,
+    };
   }
 
   logoutHandler() {
     this.api.logout();
-  }
-
-  getServerTimeHandler() {
-    let data = this.api.getServerTime();
-    console.log(data);
-    data = this.api.getNoteListData();
-    console.log(data);
   }
 
   handleNoteListChange(id) {
@@ -80,9 +71,6 @@ class Dashboard extends React.Component {
                         Logout
           </Button>
         </Link>
-        <Button onClick={this.getServerTimeHandler} variant="contained">
-                    gerServerTime
-        </Button>
         <Button variant="contained" onClick={this.handleNewNoteButton}>
                     new note
         </Button>

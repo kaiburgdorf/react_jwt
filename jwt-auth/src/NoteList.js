@@ -1,12 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {List, ListItem, ListItemButton, ListItemText} from '@mui/material';
-import Api from './classes/Api';
-import {HourglassEmpty} from '@mui/icons-material';
 
 function NoteList(props) {
   const [myData, setMyData] = useState([]);
-  const [selection, setSelection] = useState(0);
-  const [loaded, setLoaded] = useState(false);
 
   const api = props.api;
 
@@ -19,11 +15,10 @@ function NoteList(props) {
       setMyData(['loading...']);
     }
 
-    const request = api.getNoteListData()
+    api.getNoteListData()
         .then((result) => {
           console.log(result);
           setMyData(result);
-          setLoaded(true);
         })
         .catch((error) => {
           console.log(error);
@@ -36,7 +31,7 @@ function NoteList(props) {
       setMyData(['loading...']);
     }
 
-    const request = api.getNoteListData()
+    api.getNoteListData()
         .then((result) => {
           console.log(result);
           setMyData(result);
@@ -60,9 +55,7 @@ function NoteList(props) {
   const handleListAction = (event) => {
     console.log(event.target.id);
     const entryId = event.target.id;
-    setSelection(entryId);
     props.onChange(entryId);
-    // git entryId to parent so it can load it in edit component
   };
 
   return (
@@ -70,16 +63,18 @@ function NoteList(props) {
       <h1>NoteList</h1>
 
       <List>
-        {myData ? myData.map((value, index) => {
-          return (
-            <ListItem disablePadding key={index} onClick={handleListAction}>
-              <ListItemButton>
-                <ListItemText primary={createEntryItem(value)} />
-              </ListItemButton>
-            </ListItem>
-          );
-        }) :
-                        <div><p>loading...</p></div>
+        {
+        myData ?
+          myData.map((value, index) => {
+            return (
+              <ListItem disablePadding key={index} onClick={handleListAction}>
+                <ListItemButton>
+                  <ListItemText primary={createEntryItem(value)} />
+                </ListItemButton>
+              </ListItem>
+            );
+          }):
+          <div><p>loading...</p></div>
         }
       </List>
     </div>

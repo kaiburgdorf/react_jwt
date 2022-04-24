@@ -2,7 +2,6 @@ import './EditNote.css';
 import {TextField, Button} from '@mui/material';
 import React, {useEffect, useState} from 'react';
 import Api from './classes/Api';
-import {SettingsInputAntennaTwoTone} from '@mui/icons-material';
 
 
 function EditNote(props) {
@@ -15,7 +14,11 @@ function EditNote(props) {
     console.log('title: ' + title + ', content: ' + content);
     const api = new Api();
     if (props.selection > 0) {
-      api.updateNote(JSON.stringify({'title': title, 'content': content, 'id': props.selection}));
+      api.updateNote(JSON.stringify({
+        'title': title,
+        'content': content,
+        'id': props.selection,
+      }));
     } else {
       api.newNote(JSON.stringify({'title': title, 'content': content}));
     }
@@ -28,7 +31,7 @@ function EditNote(props) {
 
     if (props.selection > 0) {
       const api = new Api();
-      const request = api.getEntry(props.selection)
+      api.getEntry(props.selection)
           .then((result) => {
             setTitle(result.title);
             setContent(result.content);
@@ -41,21 +44,7 @@ function EditNote(props) {
       setTitle('');
       setContent('');
     }
-  }, [props.selection]); // ggf geht sows [, props.selection] to shrink this two effects to one
-
-  useEffect(() => {
-    /* let api = new Api();
-            let request = api.getEntry(props.selection)
-                        .then(result => {
-                            console.log(result);
-                            setTitle(result.title);
-                            setContent(result.content);
-                        })
-                        .catch(error => {
-                            console.log(error);
-                            //setTitle(["something went wrong"]);
-                        });*/
-  }, []);
+  }, [props.selection]);
 
   return (
     <div>
