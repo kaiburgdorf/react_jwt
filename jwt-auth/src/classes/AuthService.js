@@ -1,8 +1,33 @@
-
+import jwtDecode from 'jwt-decode';
 
 class AuthService {
   getUser() {
-    return (localStorage.getItem('user')) ? localStorage.getItem('user') : false;
+    return (localStorage.getItem('user')) ?
+            this.validateJwt() :
+            false;
+  }
+
+  validateJwt() {
+    const jwt = localStorage.getItem('user');
+    console.log('validation token: ' + jwt);
+
+    if (jwt === 'undefined') {
+      console.log('no jwt found in localStorage');
+      return false;
+    }
+
+    console.log(jwtDecode(jwt));
+    console.log('compare jwtexp, now: ' +
+      jwtDecode(jwt).exp + ', ' + Math.round(Date.now() / 1000));
+
+    const now = Math.round(Date.now() / 1000);
+    const exp = jwtDecode(jwt).exp;
+    if (exp < now) {
+      console.log('token expired');
+      return false;
+    }
+
+    return true;
   }
 
   getAuthHeader() {
