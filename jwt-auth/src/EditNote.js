@@ -14,13 +14,14 @@ function EditNote(props) {
     console.log('title: ' + title + ', content: ' + content);
     const api = new Api();
     if (props.selection > 0) {
-      api.updateNote(JSON.stringify({
+      api.doRequest('updateNote', JSON.stringify({
         'title': title,
         'content': content,
         'id': props.selection,
       }));
     } else {
-      api.newNote(JSON.stringify({'title': title, 'content': content}));
+      api.doRequest('newNote',
+          JSON.stringify({'title': title, 'content': content}));
     }
     props.onChange();
   };
@@ -31,13 +32,13 @@ function EditNote(props) {
 
     if (props.selection > 0) {
       const api = new Api();
-      api.getEntry(props.selection)
+      api.doRequest('getEntry', props.selection)
           .then((result) => {
             setTitle(result.title);
             setContent(result.content);
           })
           .catch((error) => {
-            console.log(error);
+            console.log('request failed');
             // setTitle(["something went wrong"]);
           });
     } else {

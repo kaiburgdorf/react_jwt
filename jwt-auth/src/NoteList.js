@@ -15,7 +15,7 @@ function NoteList(props) {
       setMyData(['loading...']);
     }
 
-    api.getNoteListData()
+    api.doRequest('getNoteListData')
         .then((result) => {
           console.log(result);
           setMyData(result);
@@ -31,7 +31,7 @@ function NoteList(props) {
       setMyData(['loading...']);
     }
 
-    api.getNoteListData()
+    api.doRequest('getNoteListData')
         .then((result) => {
           console.log(result);
           setMyData(result);

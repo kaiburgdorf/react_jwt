@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom';
 import Api from './classes/Api';
 import EditNote from './EditNote';
 import NoteList from './NoteList';
+import AuthService from './classes/AuthService';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -18,9 +19,16 @@ class Dashboard extends React.Component {
     this.editNoteChanged = this.editNoteChanged.bind(this);
 
     this.api = new Api();
+    this.authService = new AuthService();
+
+    const exp = new Date(
+        (this.authService.validateJwt('exp')) * 1000,
+    ).toLocaleTimeString();
+
     this.state = {
       'selection': 0,
       'reloadList': this,
+      'tokenExp': exp,
     };
   }
 
@@ -31,7 +39,15 @@ class Dashboard extends React.Component {
   handleNoteListChange(id) {
     console.log('handleNoteListChange');
     console.log(id);
-    this.setState({'selection': id});
+    // const now = Math.round(Date.now() / 1000);
+    const exp = new Date(
+        (this.authService.validateJwt('exp')) * 1000,
+    ).toLocaleTimeString();
+
+    this.setState({
+      'selection': id,
+      'tokenExp': exp,
+    });
   }
 
   handleNewNoteButton() {
@@ -40,7 +56,7 @@ class Dashboard extends React.Component {
 
   handleDeleteButton() {
     console.log('hit delete for selection ' + this.state.selection);
-    this.api.deleteNote(this.state.selection)
+    this.api.doRequest('deleteNote', this.state.selection)
         .then((response) => {
           console.log(response);
           this.setState({
@@ -55,7 +71,15 @@ class Dashboard extends React.Component {
 
   editNoteChanged() {
     console.log('Dashboard observerd change in edit note');
-    this.setState({reloadList: !this.state.reloadList});
+
+    const exp = new Date(
+        (this.authService.validateJwt('exp')) * 1000,
+    ).toLocaleTimeString();
+
+    this.setState({
+      'reloadList': !this.state.reloadList,
+      'tokenExp': exp,
+    });
   }
 
   render() {
@@ -77,6 +101,9 @@ class Dashboard extends React.Component {
         <Button variant="contained" onClick={this.handleDeleteButton}>
                     delete
         </Button>
+        <span>
+          <p>token expires at: {this.state.tokenExp}</p>
+        </span>
         <div className="notes-view">
           <div className="note-list">
             <NoteList
