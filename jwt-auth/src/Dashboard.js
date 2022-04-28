@@ -58,11 +58,7 @@ class Dashboard extends React.Component {
     console.log('hit delete for selection ' + this.state.selection);
     this.api.doRequest('deleteNote', this.state.selection)
         .then((response) => {
-          console.log(response);
-          this.setState({
-            'selection': 0,
-            'reloadList': !this.state.reloadList,
-          });
+          this.editNoteChanged();
         })
         .catch((error) => {
           console.log(error);

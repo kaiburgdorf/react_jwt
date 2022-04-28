@@ -1,8 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {List, ListItem, ListItemButton, ListItemText} from '@mui/material';
+import {IconButton, List, ListItem,
+  ListItemButton,
+  ListItemSecondaryAction, ListItemText} from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function NoteList(props) {
   const [myData, setMyData] = useState([]);
+  const [needReload, setNeedReload] = useState(false);
 
   const api = props.api;
 
@@ -24,7 +28,7 @@ function NoteList(props) {
           console.log(error);
           setMyData(['something went wrong']);
         });
-  }, [props.reload]);
+  }, [props.reload, needReload]);
 
   useEffect(() => {
     if (myData.length < 1) {
@@ -52,10 +56,18 @@ function NoteList(props) {
     );
   };
 
-  const handleListAction = (event) => {
-    console.log(event.target.id);
-    const entryId = event.target.id;
-    props.onChange(entryId);
+  const handleListAction = (id) => {
+    if (!id) return;
+    console.log('handleListAction - id: ' + id);
+
+    props.onChange(id);
+  };
+
+  const handleDelete = (id, index) => {
+    api.doRequest('deleteNote', JSON.stringify(id));
+    setNeedReload(!needReload);
+    props.onChange(-1);
+    console.log('should delete id: ' + id + ' now');
   };
 
   return (
@@ -67,14 +79,25 @@ function NoteList(props) {
         myData ?
           myData.map((value, index) => {
             return (
-              <ListItem disablePadding key={index} onClick={handleListAction}>
+              <ListItem disablePadding key={index}
+                onClick={() => handleListAction(value.id)}
+              >
                 <ListItemButton>
-                  <ListItemText primary={createEntryItem(value)} />
+                  <ListItemText
+                    primary={createEntryItem(value)}
+                    id={value.id}>
+                  </ListItemText>
                 </ListItemButton>
+                <ListItemSecondaryAction
+                  onClick={() => handleDelete(value.id)}>
+                  <IconButton>
+                    <DeleteIcon></DeleteIcon>
+                  </IconButton>
+                </ListItemSecondaryAction>
               </ListItem>
             );
           }):
-          <div><p>loading...</p></div>
+          <p>loading...</p>
         }
       </List>
     </div>
