@@ -29,7 +29,7 @@ class AuthService {
       }
 
       switch (returnType) {
-        case 'head':
+        case 'payload':
           return jwtDecode(jwt);
         case 'exp':
           return exp;

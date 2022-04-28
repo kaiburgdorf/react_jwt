@@ -1,10 +1,15 @@
 import {Link} from 'react-router-dom';
 import React from 'react';
 import {Button} from '@mui/material';
+import Api from './classes/Api';
 
 class Welcome extends React.Component {
   constructor(props) {
     super(props);
+
+    if (props.logout) {
+      (new Api()).logout();
+    }
 
     this.state = {};
   }

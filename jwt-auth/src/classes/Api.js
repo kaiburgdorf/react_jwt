@@ -5,7 +5,7 @@ class Api {
   constructor(props) {
     this.authService = new AuthService();
     this.state = {
-      'url': 'http://localhost/jwt_auth_backend/index.php', // @TODO get from a config
+      'url': 'http://192.168.0.237/jwt_auth_backend/index.php', // @TODO get from a config
       'needAuth': [
         'getEntry', 'getNoteListData', 'newNote', 'updateNote', 'deleteNote',
       ],
@@ -59,7 +59,7 @@ class Api {
   login(username, password) {
     let result;
 
-    axios.get('http://localhost/jwt_auth_backend/index.php', {
+    axios.get(this.state.url, {
       params: {
         method: 'login',
         username: username,
@@ -89,7 +89,7 @@ class Api {
   }
 
   logout() {
-    axios.get('http://localhost/jwt_auth_backend/index.php', {
+    axios.get(this.state.url, {
       params: {
         token: this.authService.getUser().jwt,
 
@@ -103,14 +103,13 @@ class Api {
         })
         .then(function() {
           localStorage.removeItem('user');
-          window.location.reload();
         });
   }
 
   register(username, password, email) {
     let result;
 
-    axios.get('http://localhost/jwt_auth_backend/index.php', {
+    axios.get(this.state.url, {
       params: {
         method: 'register',
         username: username,
