@@ -1,15 +1,18 @@
 .notes-view {
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     flex-direction: row;
+    width: 100%;
+    overflow: auto;
 }
 
 .note-list {
-    width: 20%;
+    flex: 0 0 20%;
     min-width: 200px;
     padding: 15px;
 }
 
 .edit-note {
+    flex: 0 0 70%;
     padding: 15px;
 }

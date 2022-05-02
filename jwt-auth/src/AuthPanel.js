@@ -1,3 +1,4 @@
+import './AuthPanel.css';
 import React, {useEffect} from 'react';
 import {useNavigate, Link} from 'react-router-dom';
 import AuthService from './classes/AuthService';
@@ -16,7 +17,7 @@ function AuthPanel(props) {
   }, []);
 
   return (
-    <div>
+    <div className='panel'>
       <h1>AuthPanel</h1>
       <nav>
         <Link to="/login">Login</Link>
